@@ -17,7 +17,6 @@ logger.setLevel(logging.INFO)
 s3_client = boto3.client('s3')
 rekognition_client = boto3.client('rekognition')
 
-console.log("Sample log")
 
 # Elasticsearch configuration
 host = os.environ['ES_HOST']
