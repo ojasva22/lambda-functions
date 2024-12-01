@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+    commands:
+      - echo "Installing dependencies"
+  build:
+    commands:
+      - echo "Zipping Lambda functions"
+      - cd index-photos && zip -r ../index-photos.zip . && cd ..
+      - cd search-photos && zip -r ../search-photos.zip . && cd ..
+  post_build:
+    commands:
+      - echo "Deploying to Lambda"
+      - aws lambda update-function-code --function-name index-photos --zip-file fileb://index-photos.zip
+      - aws lambda update-function-code --function-name search-photos --zip-file fileb://search-photos.zip
+artifacts:
+  files:
+    - index-photos.zip
+    - search-photos.zip
